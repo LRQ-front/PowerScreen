@@ -16,7 +16,9 @@
     <div class="right-center">
       <bar-charts :echartDatas="chargingStatistics"></bar-charts>
     </div>
-    <div class="right-bottom"></div>
+    <div class="right-bottom">
+      <right-bottom-svg :dots="exceptionMonitoring"></right-bottom-svg>
+    </div>
   </main>
 </template>
 
@@ -24,10 +26,12 @@
 import PieCharts from "@/components/pie-charts.vue";
 import LineCharts from "@/components/line-charts.vue";
 import BarCharts from "@/components/bar-charts.vue";
+import RightBottomSvg from "@/components/right-bottom-svg.vue";
 import {
   chargingPileData,
   processMonitoringData,
   chargingStatisticsData,
+  exceptionMonitoringData,
 } from "./config/home-data";
 import { ref } from "vue";
 
@@ -36,13 +40,14 @@ import { getPowerScreenData } from "@/services/index.js";
 let chargingPile = ref(chargingPileData);
 let processMonitoring = ref(processMonitoringData);
 let chargingStatistics = ref(chargingStatisticsData);
+let exceptionMonitoring = ref(exceptionMonitoringData);
 
 //获取数据
 getPowerScreenData().then((res) => {
-  console.log(res);
   chargingPile.value = res.data.chargingPile.data;
   processMonitoring.value = res.data.processMonitoring.data;
   chargingStatistics.value = res.data.chargingStatistics.data;
+  exceptionMonitoring.value = res.data.exceptionMonitoring.data;
 });
 </script>
 
