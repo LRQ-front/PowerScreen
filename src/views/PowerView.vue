@@ -9,8 +9,12 @@
       <line-charts :echartDatas="processMonitoring"></line-charts>
     </div>
 
-    <div class="center"></div>
-    <div class="bottom"></div>
+    <div class="center">
+      <center-svg></center-svg>
+    </div>
+    <div class="bottom">
+      <bottom-panel :panelItems="dataAnalysis"></bottom-panel>
+    </div>
 
     <div class="right-top"></div>
     <div class="right-center">
@@ -27,11 +31,14 @@ import PieCharts from "@/components/pie-charts.vue";
 import LineCharts from "@/components/line-charts.vue";
 import BarCharts from "@/components/bar-charts.vue";
 import RightBottomSvg from "@/components/right-bottom-svg.vue";
+import CenterSvg from "@/components/center-svg.vue";
+import BottomPanel from "@/components/bottom-panel.vue";
 import {
   chargingPileData,
   processMonitoringData,
   chargingStatisticsData,
   exceptionMonitoringData,
+  dataAnalysisData,
 } from "./config/home-data";
 import { ref } from "vue";
 
@@ -41,13 +48,16 @@ let chargingPile = ref(chargingPileData);
 let processMonitoring = ref(processMonitoringData);
 let chargingStatistics = ref(chargingStatisticsData);
 let exceptionMonitoring = ref(exceptionMonitoringData);
+let dataAnalysis = ref(dataAnalysisData);
 
 //获取数据
 getPowerScreenData().then((res) => {
+  console.log(1111);
   chargingPile.value = res.data.chargingPile.data;
   processMonitoring.value = res.data.processMonitoring.data;
   chargingStatistics.value = res.data.chargingStatistics.data;
   exceptionMonitoring.value = res.data.exceptionMonitoring.data;
+  dataAnalysis.value = res.data.dataAnalysis.data;
 });
 </script>
 
@@ -138,7 +148,7 @@ getPowerScreenData().then((res) => {
   width: 823px;
   height: 710px;
 
-  border: 5px solid pink;
+  /* border: 5px solid pink; */
 }
 
 .bottom {
