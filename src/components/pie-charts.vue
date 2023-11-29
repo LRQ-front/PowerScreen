@@ -5,7 +5,8 @@
 <script setup>
 import * as echarts from "echarts";
 import { ref } from "vue";
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
+import useEchart from "@/hooks/useEchart.js";
 
 const props = defineProps({
   width: {
@@ -26,12 +27,32 @@ const props = defineProps({
 
 const pieChartsRef = ref(null);
 
+let pieChart = null;
+
+//监听数据发生变化，从新设置
+watch(
+  () => props.echartDatas,
+  (newV, oldV) => {
+    setupEchart(newV);
+  }
+);
+
 onMounted(() => {
-  let pieChart = echarts.init(pieChartsRef.value, null, { renderer: "svg" });
-  //获取option配置
-  let option = getOption(props.echartDatas);
-  pieChart.setOption(option);
+  // let pieChart = echarts.init(pieChartsRef.value, null, { renderer: "svg" });
+
+  setupEchart(props.echartDatas);
 });
+
+function setupEchart(echartDatas) {
+  if (!pieChart) {
+    //使用封装的hooks
+    pieChart = useEchart(pieChartsRef.value);
+  }
+
+  //获取option配置
+  let option = getOption(echartDatas);
+  pieChart.setOption(option);
+}
 
 //外部传入数据
 function getOption(pieDatas = []) {
