@@ -28,7 +28,9 @@ let lineChart = null;
 
 watch(
   () => props.echartDatas,
-  (newV, oldV) => {}
+  (newV, oldV) => {
+    setupEchart(newV);
+  }
 );
 
 //挂载

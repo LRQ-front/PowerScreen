@@ -3,17 +3,19 @@
     <div class="header"></div>
 
     <div class="left-top">
-      <pie-charts :echartDatas="pieChartData"></pie-charts>
+      <pie-charts :echartDatas="chargingPile"></pie-charts>
     </div>
     <div class="left-bottom">
-      <line-charts :echartDatas="processMonitoringData"></line-charts>
+      <line-charts :echartDatas="processMonitoring"></line-charts>
     </div>
 
     <div class="center"></div>
     <div class="bottom"></div>
 
     <div class="right-top"></div>
-    <div class="right-center"></div>
+    <div class="right-center">
+      <bar-charts :echartDatas="chargingStatistics"></bar-charts>
+    </div>
     <div class="right-bottom"></div>
   </main>
 </template>
@@ -21,10 +23,27 @@
 <script setup>
 import PieCharts from "@/components/pie-charts.vue";
 import LineCharts from "@/components/line-charts.vue";
-import { chargingPileData, processMonitoringData } from "./config/home-data";
+import BarCharts from "@/components/bar-charts.vue";
+import {
+  chargingPileData,
+  processMonitoringData,
+  chargingStatisticsData,
+} from "./config/home-data";
 import { ref } from "vue";
 
-let pieChartData = ref(chargingPileData);
+import { getPowerScreenData } from "@/services/index.js";
+
+let chargingPile = ref(chargingPileData);
+let processMonitoring = ref(processMonitoringData);
+let chargingStatistics = ref(chargingStatisticsData);
+
+//获取数据
+getPowerScreenData().then((res) => {
+  console.log(res);
+  chargingPile.value = res.data.chargingPile.data;
+  processMonitoring.value = res.data.processMonitoring.data;
+  chargingStatistics.value = res.data.chargingStatistics.data;
+});
 </script>
 
 <style scoped>
@@ -35,6 +54,8 @@ let pieChartData = ref(chargingPileData);
   height: 100%;
 
   background-image: url("../assets/images/bg.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .header {
