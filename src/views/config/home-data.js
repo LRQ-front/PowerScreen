@@ -42,11 +42,11 @@ export const chargingPileData = [
 export const processMonitoringData = [
   {
     name: "正常",
-    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    data: [220, 182, 191, 234, 290, 330, 310, 201, 154, 190, 330, 410],
   },
   {
     name: "异常",
-    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    data: [20, 12, 11, 24, 90, 330, 10, 1, 154, 90, 330, 10],
   },
 ];
 

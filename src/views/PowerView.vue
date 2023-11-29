@@ -5,7 +5,9 @@
     <div class="left-top">
       <pie-charts :echartDatas="pieChartData"></pie-charts>
     </div>
-    <div class="left-bottom"></div>
+    <div class="left-bottom">
+      <line-charts :echartDatas="processMonitoringData"></line-charts>
+    </div>
 
     <div class="center"></div>
     <div class="bottom"></div>
@@ -18,7 +20,8 @@
 
 <script setup>
 import PieCharts from "@/components/pie-charts.vue";
-import { chargingPileData } from "./config/home-data";
+import LineCharts from "@/components/line-charts.vue";
+import { chargingPileData, processMonitoringData } from "./config/home-data";
 import { ref } from "vue";
 
 let pieChartData = ref(chargingPileData);
