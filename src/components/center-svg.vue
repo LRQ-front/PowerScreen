@@ -1212,6 +1212,42 @@
 <script setup>
 import { onMounted } from "vue";
 import gsap from "gsap";
+
+onMounted(() => {
+  let timeline = gsap.timeline();
+
+  timeline
+    .fromTo(
+      ["#dongxiao"],
+      {
+        scale: 0.6,
+        duration: 1,
+        y: 50,
+      },
+      {
+        scale: 1,
+        duration: 1,
+        y: 0,
+      }
+    )
+    .fromTo(
+      ["#center-houes"],
+      {
+        duration: 1,
+        scale: 0.6,
+        y: 50,
+        transformOrigin: "bottom",
+        opacity: 0.7,
+      },
+      {
+        duration: 1,
+        scale: 1,
+        y: 0,
+        opacity: 1,
+      },
+      "-=1"
+    );
+});
 </script>
 
 <style scoped>

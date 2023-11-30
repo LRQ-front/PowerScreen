@@ -16,7 +16,12 @@
       <bottom-panel :panelItems="dataAnalysis"></bottom-panel>
     </div>
 
-    <div class="right-top"></div>
+    <div class="right-top">
+      <right-top-panel
+        :percentage="percentage"
+        :panelItems="chargingTop4"
+      ></right-top-panel>
+    </div>
     <div class="right-center">
       <bar-charts :echartDatas="chargingStatistics"></bar-charts>
     </div>
@@ -33,12 +38,14 @@ import BarCharts from "@/components/bar-charts.vue";
 import RightBottomSvg from "@/components/right-bottom-svg.vue";
 import CenterSvg from "@/components/center-svg.vue";
 import BottomPanel from "@/components/bottom-panel.vue";
+import RightTopPanel from "@/components/right-top-panel.vue";
 import {
   chargingPileData,
   processMonitoringData,
   chargingStatisticsData,
   exceptionMonitoringData,
   dataAnalysisData,
+  chargingTop4Data,
 } from "./config/home-data";
 import { ref } from "vue";
 
@@ -49,6 +56,8 @@ let processMonitoring = ref(processMonitoringData);
 let chargingStatistics = ref(chargingStatisticsData);
 let exceptionMonitoring = ref(exceptionMonitoringData);
 let dataAnalysis = ref(dataAnalysisData);
+let chargingTop4 = ref(chargingTop4Data);
+let percentage = ref(0);
 
 //获取数据
 getPowerScreenData().then((res) => {
@@ -58,6 +67,9 @@ getPowerScreenData().then((res) => {
   chargingStatistics.value = res.data.chargingStatistics.data;
   exceptionMonitoring.value = res.data.exceptionMonitoring.data;
   dataAnalysis.value = res.data.dataAnalysis.data;
+
+  chargingTop4.value = res.data.chargingTop4.data;
+  percentage.value = res.data.chargingTop4.totalPercentage;
 });
 </script>
 
