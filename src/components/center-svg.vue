@@ -1581,7 +1581,7 @@ onMounted(() => {
   fill: #fff;
   opacity: 0.9;
   filter: url(#blue-filter-2);
-  /* will-change: opacity; */
+  will-change: opacity;
 }
 
 /* 橙色的点 */
